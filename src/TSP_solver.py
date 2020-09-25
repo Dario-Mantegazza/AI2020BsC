@@ -3,7 +3,9 @@ from time import time as t
 import numpy as np
 import matplotlib.pyplot as plt
 
-from src.local_search import TwoOpt_loop2opt, TwoDotFiveOpt_loop2dot5opt
+from src.two_opt import loop2opt
+from src.two_dot_five_opt import loop2dot5opt
+from src.simulated_annealing import sa
 from src.constructive_algorithms import random_method, nearest_neighbor, best_nearest_neighbor, multi_fragment_mf
 
 
@@ -17,9 +19,9 @@ class SolverTSP:
                               "multi_fragment": multi_fragment_mf
                               }
 
-    available_improvements = {"2-opt": TwoOpt_loop2opt,
-                              "2.5-opt": TwoDotFiveOpt_loop2dot5opt,
-                              "simulated_annealing": Simulated_Annealing.sa}
+    available_improvements = {"2-opt": loop2opt,
+                              "2.5-opt": loop2dot5opt,
+                              "simulated_annealing": sa}
 
     # ,
     #   "simulated_annealing": Simulated_Annealing,
