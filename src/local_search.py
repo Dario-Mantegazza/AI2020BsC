@@ -41,7 +41,7 @@ class TwoOpt:
     @staticmethod
     def loop2opt(solution, instance, max_num_of_uncrosses=10000):
         matrix_dist = instance.dist_matrix
-        new_len = compute_lenght(solution, matrix_dist)
+        new_len = compute_length(solution, matrix_dist)
         new_tsp_sequence = np.copy(np.array(solution))
         uncross = 0
         while uncross < max_num_of_uncrosses:
@@ -119,7 +119,7 @@ class TwoDotFiveOpt:
     @staticmethod
     def loop2dot5opt(solution, instance, max_num_of_changes=10000):
         matrix_dist = instance.dist_matrix
-        actual_len = compute_lenght(solution, matrix_dist)
+        actual_len = compute_length(solution, matrix_dist)
         new_tsp_sequence = np.copy(np.array(solution))
         uncross = 0
         while uncross < max_num_of_changes:

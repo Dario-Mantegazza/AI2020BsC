@@ -14,7 +14,7 @@ class Simulated_Annealing:
         # initial setup
         temperature = instance.best_sol / np.sqrt(instance.nPoints)
         current_sol = np.array(solution)
-        current_len = compute_lenght(solution, instance.dist_matrix)
+        current_len = compute_length(solution, instance.dist_matrix)
         best_sol = np.array(solution)
         best_len = current_len
 

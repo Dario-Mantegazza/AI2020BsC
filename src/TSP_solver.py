@@ -9,7 +9,7 @@ else:
     from AI2019.src import *
 
 
-class Solver_TSP:
+class SolverTSP:
 
     solution: ndarray
     found_length: float

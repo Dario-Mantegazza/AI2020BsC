@@ -36,7 +36,7 @@ class nearest_neighbor:
         for start in range(instance_.nPoints):
             new_solution = nearest_neighbor.nn(instance_, starting_node=start)
             solutions.append(new_solution)
-            lens.append(compute_lenght(new_solution, instance_.dist_matrix))
+            lens.append(compute_length(new_solution, instance_.dist_matrix))
 
         solution = solutions[np.argmin(lens)]
         return solution

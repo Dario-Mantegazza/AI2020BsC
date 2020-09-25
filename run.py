@@ -1,5 +1,7 @@
-from src import *
 import pandas as pd
+from src.io_tsp import Instance
+from src.TSP_solver import SolverTSP
+import numpy as np
 
 
 def add(solver, instance, improve, index, results, name, verbose, show_plots):
@@ -22,8 +24,8 @@ def add(solver, instance, improve, index, results, name, verbose, show_plots):
 def run(show_plots=False, verbose=False):
     # names = [name_ for name_ in os.listdir("./problems") if "tsp" in name_]
     names = ["eil76.tsp"]
-    initializers = Solver_TSP.available_initializers.keys()
-    improvements = Solver_TSP.available_improvements.keys()
+    initializers = SolverTSP.available_initializers.keys()
+    improvements = SolverTSP.available_improvements.keys()
     results = []
     index = []
     for name in names:
@@ -37,7 +39,7 @@ def run(show_plots=False, verbose=False):
 
         for init in initializers:
             for improve in improvements:
-                solver = Solver_TSP(init)
+                solver = SolverTSP(init)
                 add(solver, instance, improve, index, results, name, verbose, show_plots)
                 for improve2 in [j for j in improvements if j not in [improve]]:
                     add(solver, instance, improve2, index, results, name, verbose, show_plots)
@@ -47,7 +49,6 @@ def run(show_plots=False, verbose=False):
                         solver.pop()
 
                     solver.pop()
-
 
         if instance.exist_opt and show_plots:
             solver.solution = np.concatenate([instance.optimal_tour, [instance.optimal_tour[0]]])

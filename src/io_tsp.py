@@ -3,6 +3,8 @@ from typing import List
 from matplotlib import pyplot as plt
 from numpy.core._multiarray_umath import ndarray
 
+from src.utils import distance_euc
+
 
 class Instance:
     nPoints: int
@@ -14,6 +16,7 @@ class Instance:
 
     def __init__(self, name_tsp):
         self.read_instance(name_tsp)
+        self.exist_opt = None  # TODO determine default value
 
     def read_instance(self, name_tsp):
         # read raw data
@@ -63,17 +66,13 @@ class Instance:
             plt.annotate(txt, (self.points[i, 1], self.points[i, 2]))
         plt.show()
 
-    @staticmethod
-    def distance_euc(zi, zj):
-        xi, xj = zi[0], zj[0]
-        yi, yj = zi[1], zj[1]
-        return round(np.sqrt((xi - xj) ** 2 + (yi - yj) ** 2), 0)
+
 
     def create_dist_matrix(self):
         self.dist_matrix = np.zeros((self.nPoints, self.nPoints))
 
         for i in range(self.nPoints):
             for j in range(i, self.nPoints):
-                self.dist_matrix[i, j] = self.distance_euc(self.points[i][1:3], self.points[j][1:3])
+                self.dist_matrix[i, j] = distance_euc(self.points[i][1:3], self.points[j][1:3])
         self.dist_matrix += self.dist_matrix.T
 
