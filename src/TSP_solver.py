@@ -1,26 +1,24 @@
 from numpy.core._multiarray_umath import ndarray
-import os
 from time import time as t
 import numpy as np
 import matplotlib.pyplot as plt
-if 'AI' in os.getcwd():
-    from src import *
-else:
-    from AI2019.src import *
+
+from src.local_search import TwoOpt_loop2opt, TwoDotFiveOpt_loop2dot5opt
+from src.constructive_algorithms import random_method, nearest_neighbor, best_nearest_neighbor, multi_fragment_mf
 
 
 class SolverTSP:
 
     solution: ndarray
     found_length: float
-    available_initializers = {"random": random_initialier.random_method,
-                              "nearest_neighbors": nearest_neighbor.nn,
-                              "best_nn": nearest_neighbor.best_nn,
-                              "multi_fragment": multi_fragment.mf
+    available_initializers = {"random": random_method,
+                              "nearest_neighbors": nearest_neighbor,
+                              "best_nn": best_nearest_neighbor,
+                              "multi_fragment": multi_fragment_mf
                               }
 
-    available_improvements = {"2-opt": TwoOpt.loop2opt,
-                              "2.5-opt": TwoDotFiveOpt.loop2dot5opt,
+    available_improvements = {"2-opt": TwoOpt_loop2opt,
+                              "2.5-opt": TwoDotFiveOpt_loop2dot5opt,
                               "simulated_annealing": Simulated_Annealing.sa}
 
     # ,

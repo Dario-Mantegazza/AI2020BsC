@@ -17,6 +17,7 @@ class Instance:
     def __init__(self, name_tsp):
         self.read_instance(name_tsp)
         self.exist_opt = None  # TODO determine default value
+        self.optimal_tour = None
 
     def read_instance(self, name_tsp):
         # read raw data
@@ -66,8 +67,6 @@ class Instance:
             plt.annotate(txt, (self.points[i, 1], self.points[i, 2]))
         plt.show()
 
-
-
     def create_dist_matrix(self):
         self.dist_matrix = np.zeros((self.nPoints, self.nPoints))
 
@@ -75,4 +74,3 @@ class Instance:
             for j in range(i, self.nPoints):
                 self.dist_matrix[i, j] = distance_euc(self.points[i][1:3], self.points[j][1:3])
         self.dist_matrix += self.dist_matrix.T
-

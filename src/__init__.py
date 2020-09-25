@@ -4,7 +4,7 @@ if 'AI' in os.getcwd():
     from src.utils import *
     from src.constructive_algorithms import *
     from src.local_search import *
-    from src.meta_heuristics import *
+    from src.iterated_local_search import *
     from src.TSP_solver import *
     from src.io_tsp import *
 

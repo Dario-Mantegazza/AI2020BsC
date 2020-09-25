@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def compute_length(solution, dist_matrix):
     total_length = 0
     starting_node = solution[0]
