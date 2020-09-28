@@ -51,7 +51,9 @@ def run(show_plots=False, verbose=False):
                     solver.pop()
 
         if prob_instance.exist_opt and show_plots:
-            solver.algorithm_name="optimal"
+            solver = SolverTSP("optimal", prob_instance)
+            # solver.name_method = "optimal"  # TODO ask umberto details
+
             solver.solution = np.concatenate([prob_instance.optimal_tour, [prob_instance.optimal_tour[0]]])
             solver.plot_solution()
 

@@ -16,7 +16,7 @@ class ProblemInstance:
 
     def __init__(self, name_tsp):
         self.read_instance(name_tsp)
-        self.exist_opt = None  # TODO determine default value
+        self.exist_opt = False  # TODO determine default value
         self.optimal_tour = None
 
     def read_instance(self, name_tsp):
@@ -40,8 +40,7 @@ class ProblemInstance:
             self.points[i, 2] = line_i[2]
 
         self.create_dist_matrix()
-        self.exist_opt = False
-        if [name for name in ["eil76", "kroA100"] if name in name_tsp]:
+        if name_tsp in ["./problems/eil76.tsp", "./problems/kroA100.tsp"]:
             self.exist_opt = True
             file_object = open(name_tsp.replace(".tsp", ".opt.tour"))
             data = file_object.read()

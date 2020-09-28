@@ -24,7 +24,7 @@ class SolverTSP:
     found_length: float
 
     def __init__(self, algorithm_name, problem_instance):
-        assert algorithm_name in available_solvers, f"the {algorithm_name} initializer is not available currently."
+        # assert algorithm_name in available_solvers, f"the {algorithm_name} initializer is not available currently."
         self.duration = np.inf
         self.algorithm_name = algorithm_name
         self.algorithms = [algorithm_name]
