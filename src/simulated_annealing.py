@@ -1,6 +1,6 @@
 import numpy as np
 
-from src import compute_length
+from src.utils import compute_length
 
 
 def sa(solution, instance, constant_temperature=0.95, iterations_for_each_temp=100):

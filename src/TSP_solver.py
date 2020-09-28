@@ -1,4 +1,3 @@
-from numpy.core._multiarray_umath import ndarray
 from time import time as t
 import numpy as np
 import matplotlib.pyplot as plt
@@ -20,12 +19,11 @@ available_improvers = {"2-opt": loop2opt,
 
 
 class SolverTSP:
-    solution: ndarray
-    found_length: float
 
     def __init__(self, algorithm_name, problem_instance):
         # assert algorithm_name in available_solvers, f"the {algorithm_name} initializer is not available currently."
         self.duration = np.inf
+        self.found_length = np.inf
         self.algorithm_name = algorithm_name
         self.algorithms = [algorithm_name]
         self.name_method = "initialized with " + algorithm_name

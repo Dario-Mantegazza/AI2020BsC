@@ -1,4 +1,4 @@
-class Iterated_Local_Search:
+class IteratedLocalSearch:
 
     def __call__(self):
         pass

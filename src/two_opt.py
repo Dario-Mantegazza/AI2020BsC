@@ -1,6 +1,6 @@
 import numpy as np
 
-from src import compute_length
+from src.utils import compute_length
 
 
 def step2opt(solution, matrix_dist, distance):

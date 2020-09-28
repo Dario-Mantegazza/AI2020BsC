@@ -1,25 +1,15 @@
 import numpy as np
-from typing import List
 from matplotlib import pyplot as plt
-from numpy.core._multiarray_umath import ndarray
 
 from src.utils import distance_euc
 
 
 class ProblemInstance:
-    nPoints: int
-    best_sol: int
-    name: str
-    lines: List[str]
-    dist_matrix: ndarray
-    points: ndarray
 
     def __init__(self, name_tsp):
         self.exist_opt = False
         self.optimal_tour = None
-        self.read_instance(name_tsp)
-
-    def read_instance(self, name_tsp):
+        self.dist_matrix = None
         # read raw data
         file_object = open(name_tsp)
         data = file_object.read()
@@ -54,6 +44,7 @@ class ProblemInstance:
                 self.optimal_tour[i] = int(line_i[0]) - 1
 
     def print_info(self):
+        print("\n\n#############################")
         print('name: ' + self.name)
         print('nPoints: ' + str(self.nPoints))
         print('best_sol: ' + str(self.best_sol))

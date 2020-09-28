@@ -32,7 +32,6 @@ def run(show_plots=False, verbose=False):
     for problem_path in problems:
         prob_instance = ProblemInstance(problem_path)
         if verbose:
-            print("\n\n#############################")
             prob_instance.print_info()
         if show_plots:
             prob_instance.plot_data()
@@ -41,15 +40,15 @@ def run(show_plots=False, verbose=False):
             for improve in improvers_names:
                 solver = SolverTSP(solver_name, prob_instance)
                 use_solver_to_compute_solution(solver, improve, index, results, problem_path, verbose, show_plots)
-        for improve2 in [j for j in improvers_names if j not in [improve]]:
-            use_solver_to_compute_solution(solver, improve2, index, results, problem_path, verbose, show_plots)
+                for improve2 in [j for j in improvers_names if j not in [improve]]:
+                    use_solver_to_compute_solution(solver, improve2, index, results, problem_path, verbose, show_plots)
 
-            for improve3 in [j for j in improvers_names if j not in [improve, improve2]]:
-                use_solver_to_compute_solution(solver, improve3, index, results, problem_path, verbose,
-                                               show_plots)
-                solver.pop()
+                    for improve3 in [j for j in improvers_names if j not in [improve, improve2]]:
+                        use_solver_to_compute_solution(solver, improve3, index, results, problem_path, verbose,
+                                                       show_plots)
+                        solver.pop()
 
-            solver.pop()
+                    solver.pop()
 
         if prob_instance.exist_opt and show_plots:
             solver = SolverTSP("optimal", prob_instance)
