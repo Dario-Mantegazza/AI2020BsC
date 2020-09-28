@@ -6,7 +6,7 @@ from numpy.core._multiarray_umath import ndarray
 from src.utils import distance_euc
 
 
-class Instance:
+class ProblemInstance:
     nPoints: int
     best_sol: int
     name: str
