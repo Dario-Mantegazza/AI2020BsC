@@ -11,8 +11,8 @@ def step2dot5opt(solution, matrix_dist, distance):
     for i in range(1, seq_length - 1):
         for j in range(i + 1, seq_length):
             # 2opt swap
-            twoOpt_tsp_sequence = swap2opt(tsp_sequence, i, j)
-            twoOpt_len = distance + gain(i, j, tsp_sequence, matrix_dist)
+            two_opt_tsp_sequence = swap2opt(tsp_sequence, i, j)
+            two_opt_len = distance + gain(i, j, tsp_sequence, matrix_dist)
             # node shift 1
             first_shift_tsp_sequence = shift1(tsp_sequence, i, j)
             first_shift_len = distance + shift_gain1(i, j, tsp_sequence, matrix_dist)
@@ -20,9 +20,9 @@ def step2dot5opt(solution, matrix_dist, distance):
             second_shift_tsp_sequence = shift2(tsp_sequence, i, j)
             second_shift_len = distance + shift_gain2(i, j, tsp_sequence, matrix_dist)
 
-            best_len, best_method = min([twoOpt_len, first_shift_len, second_shift_len]), np.argmin(
-                [twoOpt_len, first_shift_len, second_shift_len])
-            sequences = [twoOpt_tsp_sequence, first_shift_tsp_sequence, second_shift_tsp_sequence]
+            best_len, best_method = min([two_opt_len, first_shift_len, second_shift_len]), np.argmin(
+                [two_opt_len, first_shift_len, second_shift_len])
+            sequences = [two_opt_tsp_sequence, first_shift_tsp_sequence, second_shift_tsp_sequence]
             if best_len < distance:
                 uncrosses += 1
                 tsp_sequence = sequences[best_method]

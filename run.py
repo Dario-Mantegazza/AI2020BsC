@@ -4,7 +4,7 @@ from src.TSP_solver import SolverTSP, available_improvers, available_solvers
 import numpy as np
 
 
-def add(solver, improve, index, results, name, verbose, show_plots):
+def use_solver_to_compute_solution(solver, improve, index, results, name, verbose, show_plots):
     solver.bind(improve)
     solver.compute_solution(return_value=False, verbose=verbose)
 
@@ -39,19 +39,20 @@ def run(show_plots=False, verbose=False):
         for solver_name in solvers_names:
             for improve in improvers_names:
                 solver = SolverTSP(solver_name, prob_instance)
-                add(solver, improve, index, results, problem_path, verbose, show_plots)
+                use_solver_to_compute_solution(solver, improve, index, results, problem_path, verbose, show_plots)
                 for improve2 in [j for j in improvers_names if j not in [improve]]:
-                    add(solver, improve2, index, results, problem_path, verbose, show_plots)
+                    use_solver_to_compute_solution(solver, improve2, index, results, problem_path, verbose, show_plots)
 
                     for improve3 in [j for j in improvers_names if j not in [improve, improve2]]:
-                        add(solver, improve3, index, results, problem_path, verbose, show_plots)
+                        use_solver_to_compute_solution(solver, improve3, index, results, problem_path, verbose,
+                                                       show_plots)
                         solver.pop()
 
                     solver.pop()
 
         if prob_instance.exist_opt and show_plots:
+            solver.algorithm_name="optimal"
             solver.solution = np.concatenate([prob_instance.optimal_tour, [prob_instance.optimal_tour[0]]])
-            solver.method = "optimal"
             solver.plot_solution()
 
     index = pd.MultiIndex.from_tuples(index, names=['problem', 'method'])

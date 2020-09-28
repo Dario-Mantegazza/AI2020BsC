@@ -25,16 +25,16 @@ def nearest_neighbor(instance_, starting_node=0):
 
 
 def best_nearest_neighbor(instance_):
-    solutions, lens = [], []
+    solutions, lengths = [], []
     for start in range(instance_.nPoints):
         new_solution = nearest_neighbor(instance_, starting_node=start)
         solutions.append(new_solution)
-        lens.append(compute_length(new_solution, instance_.dist_matrix))
+        lengths.append(compute_length(new_solution, instance_.dist_matrix))
 
-    if lens is []:
-        return None  # Todo understand this return
+    if lengths is []:
+        return None
     else:
-        solution = solutions[np.argmin(lens)]
+        solution = solutions[np.argmin(lengths)]
         return solution
 
 
@@ -52,21 +52,21 @@ def multi_fragment_check_if_not_close(edge_to_append, sol):
         return True
     partial_tour = [from_city]
     end = False
-    iterazione = 0
+    iteration = 0
     while not end:
         if len(sol[str(from_city)]) == 1:
             if from_city == n1:
                 return_value = False
                 end = True
-            elif iterazione > 1:
-                # print(f"iterazione {iterazione}, elementi dentro partial {len(partial_tour)}",
+            elif iteration > 1:
+                # print(f"iterazione {iteration}, elementi dentro partial {len(partial_tour)}",
                 #       f"from city {from_city}")
                 return_value = True
                 end = True
             else:
                 from_city = sol[str(from_city)][0]
                 partial_tour.append(from_city)
-                iterazione += 1
+                iteration += 1
         else:
             # print(from_city, partial_tour, sol[str(from_city)])
             for node_connected in sol[str(from_city)]:
@@ -75,7 +75,7 @@ def multi_fragment_check_if_not_close(edge_to_append, sol):
                     from_city = node_connected
                     partial_tour.append(node_connected)
                     # print(node_connected, sol[str(from_city)])
-                    iterazione += 1
+                    iteration += 1
     return return_value
 
 
@@ -85,17 +85,17 @@ def multi_fragment_create_solution(start_sol, sol, n):
     n1, n2 = start_sol
     from_city = n2
     sol_list = [n1, n2]
-    iterazione = 0
+    iteration = 0
     while not end:
         for node_connected in sol[str(from_city)]:
-            iterazione += 1
+            iteration += 1
             if node_connected not in sol_list:
                 from_city = node_connected
                 sol_list.append(node_connected)
                 # print(f"prossimo {node_connected}",
                 #       f"possibili {sol[str(from_city)]}",
                 #       f"ultim tour {sol_list[-5:]}")
-            if iterazione > 300:
+            if iteration > 300:
                 if len(sol_list) == n:
                     end = True
     sol_list.append(n1)

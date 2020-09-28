@@ -31,6 +31,7 @@ class SolverTSP:
         self.name_method = "initialized with " + algorithm_name
         self.solved = False
         self.problem_instance = problem_instance
+        self.solution = None
 
     def bind(self, local_or_meta):
         assert local_or_meta in available_improvers, f"the {local_or_meta} method is not available currently."
@@ -79,11 +80,9 @@ class SolverTSP:
     def check_if_solution_is_valid(self, solution):
         # rights_values = np.sum(
         # [self.check_validation(i, solution[:-1]) for i in np.arange(self.problem_instance.nPoints)])
-        rights_values = np.sum([1 if np.sum(solution[:-1] == i) == 1 else 0 for i in np.arange(self.problem_instance.nPoints)])
+        rights_values = np.sum(
+            [1 if np.sum(solution[:-1] == i) == 1 else 0 for i in np.arange(self.problem_instance.nPoints)])
         return rights_values == self.problem_instance.nPoints
-        #     return True
-        # else:
-        #     return False
 
     # def check_validation(self, node, solution):
     #     if np.sum(solution == node) == 1:
