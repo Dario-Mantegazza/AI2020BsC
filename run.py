@@ -1,3 +1,4 @@
+import glob
 import pandas as pd
 from src.io_tsp import ProblemInstance
 from src.TSP_solver import SolverTSP, available_improvers, available_solvers
@@ -22,8 +23,8 @@ def use_solver_to_compute_solution(solver, improve, index, results, name, verbos
 
 
 def run(show_plots=False, verbose=False):
-    # problems = glob.glob('./problems/*.tsp')
-    problems = ["./problems/eil76.tsp"]
+    problems = glob.glob('./problems/*.tsp')
+    # problems = ["./problems/eil76.tsp"]
     solvers_names = available_solvers.keys()
     improvers_names = available_improvers.keys()
     results = []
@@ -40,20 +41,19 @@ def run(show_plots=False, verbose=False):
             for improve in improvers_names:
                 solver = SolverTSP(solver_name, prob_instance)
                 use_solver_to_compute_solution(solver, improve, index, results, problem_path, verbose, show_plots)
-                for improve2 in [j for j in improvers_names if j not in [improve]]:
-                    use_solver_to_compute_solution(solver, improve2, index, results, problem_path, verbose, show_plots)
+        for improve2 in [j for j in improvers_names if j not in [improve]]:
+            use_solver_to_compute_solution(solver, improve2, index, results, problem_path, verbose, show_plots)
 
-                    for improve3 in [j for j in improvers_names if j not in [improve, improve2]]:
-                        use_solver_to_compute_solution(solver, improve3, index, results, problem_path, verbose,
-                                                       show_plots)
-                        solver.pop()
+            for improve3 in [j for j in improvers_names if j not in [improve, improve2]]:
+                use_solver_to_compute_solution(solver, improve3, index, results, problem_path, verbose,
+                                               show_plots)
+                solver.pop()
 
-                    solver.pop()
+            solver.pop()
 
         if prob_instance.exist_opt and show_plots:
             solver = SolverTSP("optimal", prob_instance)
-            # solver.name_method = "optimal"  # TODO ask umberto details
-
+            solver.solved = True
             solver.solution = np.concatenate([prob_instance.optimal_tour, [prob_instance.optimal_tour[0]]])
             solver.plot_solution()
 

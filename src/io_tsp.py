@@ -15,9 +15,9 @@ class ProblemInstance:
     points: ndarray
 
     def __init__(self, name_tsp):
-        self.read_instance(name_tsp)
-        self.exist_opt = False  # TODO determine default value
+        self.exist_opt = False
         self.optimal_tour = None
+        self.read_instance(name_tsp)
 
     def read_instance(self, name_tsp):
         # read raw data
@@ -57,6 +57,7 @@ class ProblemInstance:
         print('name: ' + self.name)
         print('nPoints: ' + str(self.nPoints))
         print('best_sol: ' + str(self.best_sol))
+        print('exist optimal: ' + str(self.exist_opt))
 
     def plot_data(self):
         plt.figure(figsize=(8, 8))
