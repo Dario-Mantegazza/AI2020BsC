@@ -23,8 +23,8 @@ def use_solver_to_compute_solution(solver, improve, index, results, name, verbos
 
 
 def run(show_plots=False, verbose=False):
-    problems = glob.glob('./problems/*.tsp')
-    # problems = ["./problems/eil76.tsp"]
+    # problems = glob.glob('./problems/*.tsp')
+    problems = ["./problems/eil76.tsp"]
     solvers_names = available_solvers.keys()
     improvers_names = available_improvers.keys()
     results = []

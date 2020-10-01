@@ -19,7 +19,6 @@ available_improvers = {"2-opt": loop2opt,
 
 
 class SolverTSP:
-
     def __init__(self, algorithm_name, problem_instance):
         # assert algorithm_name in available_solvers, f"the {algorithm_name} initializer is not available currently."
         self.duration = np.inf
@@ -57,12 +56,6 @@ class SolverTSP:
         self.solved = True
         self.evaluate_solution()
         self._gap()
-        # if verbose:
-        #     print(f"###  solution found with {self.gap} % gap  in {self.duration} seconds ####",
-        #           f"the total length for the solution found is {self.found_length}",
-        #           f"while the optimal length is {prob_instance.best_sol}",
-        #           f"the gap is {self.gap}%")
-
         if return_value:
             return self.solution
 
