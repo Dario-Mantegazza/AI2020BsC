@@ -50,12 +50,13 @@ class ProblemInstance:
         print('best_sol: ' + str(self.best_sol))
         print('exist optimal: ' + str(self.exist_opt))
 
-    def plot_data(self):
+    def plot_data(self,show_numbers=False):
         plt.figure(figsize=(8, 8))
         plt.title(self.name)
         plt.scatter(self.points[:, 1], self.points[:, 2])
-        for i, txt in enumerate(np.arange(self.nPoints)):  # tour_found[:-1]
-            plt.annotate(txt, (self.points[i, 1], self.points[i, 2]))
+        if show_numbers:
+            for i, txt in enumerate(np.arange(self.nPoints)):  # tour_found[:-1]
+                plt.annotate(txt, (self.points[i, 1], self.points[i, 2]))
         plt.show()
 
     def create_dist_matrix(self):

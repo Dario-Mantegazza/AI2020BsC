@@ -11,7 +11,9 @@ def compute_length(solution, dist_matrix):
     return total_length
 
 
-def distance_euc(zi, zj):
-    xi, xj = zi[0], zj[0]
-    yi, yj = zi[1], zj[1]
-    return round(np.sqrt((xi - xj) ** 2 + (yi - yj) ** 2), 0)
+def distance_euc(point_i, point_j):
+    rounding=0
+    x_i, y_i = point_i[0], point_i[1]
+    x_j, y_j = point_j[0], point_j[1]
+    distance = np.sqrt((x_i - x_j) ** 2 + (y_i - y_j) ** 2)
+    return round(distance, rounding)
