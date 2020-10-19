@@ -1,7 +1,7 @@
 import glob
 import pandas as pd
 from src.io_tsp import ProblemInstance
-from src.TSP_solver import SolverTSP, available_improvers, available_solvers
+from src.TSP_solver import TSPSolver, available_improvers, available_solvers
 import numpy as np
 
 
@@ -38,7 +38,7 @@ def run(show_plots=False, verbose=False):
 
         for solver_name in solvers_names:
             for improve in improvers_names:
-                solver = SolverTSP(solver_name, prob_instance)
+                solver = TSPSolver(solver_name, prob_instance)
                 use_solver_to_compute_solution(solver, improve, index, results, problem_path, verbose, show_plots)
                 for improve2 in [j for j in improvers_names if j not in [improve]]:
                     use_solver_to_compute_solution(solver, improve2, index, results, problem_path, verbose, show_plots)
@@ -51,7 +51,7 @@ def run(show_plots=False, verbose=False):
                     solver.pop()
 
         if prob_instance.exist_opt and show_plots:
-            solver = SolverTSP("optimal", prob_instance)
+            solver = TSPSolver("optimal", prob_instance)
             solver.solved = True
             solver.solution = np.concatenate([prob_instance.optimal_tour, [prob_instance.optimal_tour[0]]])
             solver.plot_solution()

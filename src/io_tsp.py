@@ -10,8 +10,10 @@ class ProblemInstance:
         self.exist_opt = False
         self.optimal_tour = None
         self.dist_matrix = None
+
         # read raw data
-        file_object = open(name_tsp)
+        self.file_name = name_tsp
+        file_object = open(self.file_name)
         data = file_object.read()
         file_object.close()
         self.lines = data.splitlines()
@@ -30,9 +32,10 @@ class ProblemInstance:
             self.points[i, 2] = line_i[2]
 
         self.create_dist_matrix()
-        if name_tsp in ["./problems/eil76.tsp", "./problems/kroA100.tsp"]:
+        if self.file_name in ["./problems/eil76.tsp", "./problems/kroA100.tsp", "../problems/eil76.tsp",
+                              "../problems/kroA100.tsp"]:
             self.exist_opt = True
-            file_object = open(name_tsp.replace(".tsp", ".opt.tour"))
+            file_object = open(self.file_name.replace(".tsp", ".opt.tour"))
             data = file_object.read()
             file_object.close()
             lines = data.splitlines()
@@ -50,7 +53,7 @@ class ProblemInstance:
         print('best_sol: ' + str(self.best_sol))
         print('exist optimal: ' + str(self.exist_opt))
 
-    def plot_data(self,show_numbers=False):
+    def plot_data(self, show_numbers=False):
         plt.figure(figsize=(8, 8))
         plt.title(self.name)
         plt.scatter(self.points[:, 1], self.points[:, 2])
