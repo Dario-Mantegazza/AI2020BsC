@@ -52,10 +52,17 @@ class TSPSolver:
             print(f"###  solving with {self.algorithms} ####")
         start_time = t()
         self.solution = self.available_solvers[self.algorithms[0]](self.problem_instance)
-        assert self.check_if_solution_is_valid(), "Error the solution is not valid"
+        if self.check_if_solution_is_valid():
+            print(f"Error the solution of {self.algorithm_name} for problem {self.problem_instance.name} is not valid")
+            if return_value:
+                return False
         for i in range(1, len(self.algorithms)):
-            self.solution = self.available_improvers[self.algorithms[i]](self.solution, self.problem_instance)
-            assert self.check_if_solution_is_valid(), "Error the solution is not valid"
+            improver = self.algorithms[i]
+            self.solution = self.available_improvers[improver](self.solution, self.problem_instance)
+            if self.check_if_solution_is_valid():
+                print(f"Error the solution of {self.algorithm_name} with {improver} for problem {self.problem_instance.name} is not valid")
+                if return_value:
+                    return False
 
         end_time = t()
         self.duration = np.around(end_time - start_time, 3)
@@ -75,17 +82,17 @@ class TSPSolver:
         plt.show()
 
     def check_if_solution_is_valid(self):
-        # rights_values = np.sum(
-        # [self.check_validation(i, solution[:-1]) for i in np.arange(self.problem_instance.nPoints)])
         rights_values = np.sum(
-            [1 if np.sum(self.solution[:-1] == i) == 1 else 0 for i in np.arange(self.problem_instance.nPoints)])
-        return rights_values == self.problem_instance.nPoints
+        [self.check_validation(i, self.solution[:-1]) for i in np.arange(self.problem_instance.nPoints)])
+        # rights_values = np.sum(
+        #     [1 if np.sum(self.solution[:-1] == i) == 1 else 0 for i in np.arange(self.problem_instance.nPoints)])
+        # return rights_values == self.problem_instance.nPoints
 
-    # def check_validation(self, node, solution):
-    #     if np.sum(solution == node) == 1:
-    #         return 1
-    #     else:
-    #         return 0
+    def check_validation(self, node, solution):
+        if np.sum(solution == node) == 1:
+            return 1
+        else:
+            return 0
 
     def evaluate_solution(self, return_value=False):
         total_length = 0
