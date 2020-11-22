@@ -60,7 +60,8 @@ class TSPSolver:
             improver = self.algorithms[i]
             self.solution = self.available_improvers[improver](self.solution, self.problem_instance)
             if self.check_if_solution_is_valid():
-                print(f"Error the solution of {self.algorithm_name} with {improver} for problem {self.problem_instance.name} is not valid")
+                print(
+                    f"Error the solution of {self.algorithm_name} with {improver} for problem {self.problem_instance.name} is not valid")
                 if return_value:
                     return False
 
@@ -83,10 +84,10 @@ class TSPSolver:
 
     def check_if_solution_is_valid(self):
         rights_values = np.sum(
-        [self.check_validation(i, self.solution[:-1]) for i in np.arange(self.problem_instance.nPoints)])
+            [self.check_validation(i, self.solution[:-1]) for i in np.arange(self.problem_instance.nPoints)])
         # rights_values = np.sum(
         #     [1 if np.sum(self.solution[:-1] == i) == 1 else 0 for i in np.arange(self.problem_instance.nPoints)])
-        # return rights_values == self.problem_instance.nPoints
+        return rights_values == self.problem_instance.nPoints
 
     def check_validation(self, node, solution):
         if np.sum(solution == node) == 1:
@@ -105,6 +106,13 @@ class TSPSolver:
         self.found_length = total_length
         if return_value:
             return total_length
+
+    def pass_and_check_if_solution_is_valid(self, solution):
+        rights_values = np.sum(
+            [self.check_validation(i, solution[:-1]) for i in np.arange(self.problem_instance.nPoints)])
+        # rights_values = np.sum(
+        #     [1 if np.sum(solution[:-1] == i) == 1 else 0 for i in np.arange(self.problem_instance.nPoints)])
+        return rights_values == self.problem_instance.nPoints
 
     def _gap(self):
         self.evaluate_solution(return_value=False)
