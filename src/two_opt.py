@@ -3,6 +3,20 @@ import numpy as np
 from src.utils import compute_length
 
 
+def swap2opt(tsp_sequence, i, j):
+    new_tsp_sequence = np.copy(tsp_sequence)
+    new_tsp_sequence[i:j + 1] = np.flip(tsp_sequence[i:j + 1], axis=0)
+    return new_tsp_sequence
+
+
+def gain(i, j, tsp_sequence, matrix_dist):
+    old_link_len = (matrix_dist[tsp_sequence[i], tsp_sequence[i - 1]] + matrix_dist[
+        tsp_sequence[j], tsp_sequence[j + 1]])
+    changed_links_len = (matrix_dist[tsp_sequence[j], tsp_sequence[i - 1]] + matrix_dist[
+        tsp_sequence[i], tsp_sequence[j + 1]])
+    return - old_link_len + changed_links_len
+
+
 def step2opt(solution, matrix_dist, distance):
     seq_length = len(solution) - 1
     tsp_sequence = np.array(solution)
@@ -16,20 +30,6 @@ def step2opt(solution, matrix_dist, distance):
                 tsp_sequence = np.copy(new_tsp_sequence)
                 distance = new_distance
     return tsp_sequence, distance, uncrosses
-
-
-def swap2opt(tsp_sequence, i, j):
-    new_tsp_sequence = np.copy(tsp_sequence)
-    new_tsp_sequence[i:j + 1] = np.flip(tsp_sequence[i:j + 1], axis=0)  # flip or swap ?
-    return new_tsp_sequence
-
-
-def gain(i, j, tsp_sequence, matrix_dist):
-    old_link_len = (matrix_dist[tsp_sequence[i], tsp_sequence[i - 1]] + matrix_dist[
-        tsp_sequence[j], tsp_sequence[j + 1]])
-    changed_links_len = (matrix_dist[tsp_sequence[j], tsp_sequence[i - 1]] + matrix_dist[
-        tsp_sequence[i], tsp_sequence[j + 1]])
-    return - old_link_len + changed_links_len
 
 
 def loop2opt(solution, instance, max_num_of_uncrosses=10000):
